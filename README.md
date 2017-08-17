@@ -2,6 +2,9 @@
 
 This tutorial demonstrates how to conduct distributed load testing using [Kubernetes](http://kubernetes.io) and includes a sample web application, Docker image, and Kubernetes controllers/services. For more background refer to the [Distributed Load Testing Using Kubernetes](http://cloud.google.com/solutions/distributed-load-testing-using-kubernetes) solution paper.
 
+This will walk through setting up distributed load testing using [Locust](http://locust.io) running on [Google Container Engine (GKE)](https://cloud.google.com/container-engine/).
+
+
 ## Prerequisites
 
 * Google Cloud Platform account
