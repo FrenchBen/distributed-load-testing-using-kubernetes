@@ -19,6 +19,8 @@ import uuid
 
 from datetime import datetime
 from locust import HttpLocust, TaskSet, task
+import json
+import time
 
 
 class MetricsTaskSet(TaskSet):
@@ -28,14 +30,11 @@ class MetricsTaskSet(TaskSet):
         self._deviceid = str(uuid.uuid4())
 
     @task(1)
-    def login(self):
-        self.client.post(
-            '/login', {"deviceid": self._deviceid})
+    def post_state(self):
+        payload = {"documentId": str(uuid.uuid4()), "generationTime:": time.time(),"pageInstanceID":"ProductDetailPageNikonCamera-Staging","page":{"pageInfo":{"pageID":"NikonCamera","destinationURL":"http://mysite.com/products/NikonCamera.html"},"category":{"primaryCategory":"Cameras","subCategory1":"Nikon","pageType":"ProductDetail"},"attributes":{"Seasonal":"Christmas"}},"product":[{"productInfo":{"productName":"NikonSLRCamera","sku":"sku12345","manufacturer":"Nikon"},"category":{"primaryCategory":"Cameras"},"attributes":{"productType":"SpecialOffer"}}]}
+        headers = {'content-type': 'application/json'}
+        self.client.post("/pubsub/push?token=1234", data=json.dumps(payload), headers=headers)
 
-    @task(999)
-    def post_metrics(self):
-        self.client.post(
-            "/metrics", {"deviceid": self._deviceid, "timestamp": datetime.now()})
 
 
 class MetricsLocust(HttpLocust):
