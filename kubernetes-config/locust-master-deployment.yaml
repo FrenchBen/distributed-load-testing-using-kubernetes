@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/bluejay-uk-dev-01/locust-tasks:bluejay-demo
+          image: gcr.io/bluejay-uk-dev-01/locust-tasks:bluejay-demo-get
           env:
             - name: LOCUST_MODE
               value: master
